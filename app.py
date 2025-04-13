@@ -1,43 +1,32 @@
 import streamlit as st
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.preprocessing import LabelEncoder
-import numpy as np
+from ml_model import train_model
 import seaborn as sns
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 # Title and description
 st.title("Customer Spending Score Predictor")
-st.markdown("Input customer details to predict their Spending Score.")
+st.markdown("Input customer details to predict their Spending Score dynamically.")
 
-# Load the dataset (no need to upload; it's predefined)
+# Load the dataset
 @st.cache_data
 def load_data():
-    # Example dataset provided directly within the script
+    # Load the dataset
     data = pd.read_csv("Mall_Customers.csv")
     data['Gender'] = data['Gender'].map({'Male': 1, 'Female': 0})  # Encode gender
     return data
 
-# Train the model dynamically
-@st.cache_data
-def train_model(data):
-    X = data[['Gender', 'Age', 'Annual Income (k$)']]
-    y = data['Spending Score (1-100)']
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    model = RandomForestRegressor(random_state=42)
-    model.fit(X_train, y_train)
-    return model, X_test, y_test
-
-# Load and prepare the data
 data = load_data()
-model, X_test, y_test = train_model(data)
 
 # Sidebar for user inputs
 st.sidebar.header("Input Customer Details")
 gender = st.sidebar.selectbox("Gender", ["Male", "Female"])
 age = st.sidebar.slider("Age", min_value=18, max_value=70, value=30)
 annual_income = st.sidebar.number_input("Annual Income (in $k)", min_value=0, max_value=200, value=50)
+
+# Train the model dynamically
+model, X_test, y_test = train_model("Mall_Customers.csv")
 
 # Prepare user input for prediction
 user_data = pd.DataFrame({
@@ -60,3 +49,47 @@ if st.sidebar.button("Predict Spending Score"):
     else:
         st.success("High Spending Score. Great candidates for premium products!")
 
+# NEW: Sidebar button for detailed analysis
+if st.sidebar.button("Show Detailed Data Analysis"):
+    # Detailed Analysis Section
+    st.subheader("Dataset Overview")
+    st.write("Here's a preview of your dataset:")
+    st.dataframe(data)
+
+    # Descriptive Statistics
+    st.subheader("Descriptive Statistics")
+    st.write("Basic statistics of your dataset:")
+    st.write(data.describe())
+
+    # Gender Distribution Pie Chart
+    st.subheader("Gender Distribution")
+    gender_counts = data['Gender'].value_counts()
+    fig = px.pie(values=gender_counts.values, names=['Male', 'Female'], title="Gender Distribution")
+    st.plotly_chart(fig)
+
+    # Age Distribution Histogram
+    st.subheader("Age Distribution")
+    fig, ax = plt.subplots()
+    sns.histplot(data['Age'], bins=15, kde=True, color='blue', ax=ax)
+    ax.set_title("Age Distribution")
+    ax.set_xlabel("Age")
+    ax.set_ylabel("Frequency")
+    st.pyplot(fig)
+
+    # Annual Income vs Spending Score Scatter Plot
+    st.subheader("Annual Income vs Spending Score")
+    fig = px.scatter(data, x="Annual Income (k$)", y="Spending Score (1-100)", color=data['Age'],
+                     title="Annual Income vs Spending Score",
+                     labels={"Annual Income (k$)": "Annual Income", "Spending Score (1-100)": "Spending Score"})
+    st.plotly_chart(fig)
+
+    # Correlation Matrix Heatmap
+    st.subheader("Correlation Matrix")
+    fig, ax = plt.subplots()
+    sns.heatmap(data[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']].corr(), annot=True, cmap='coolwarm', ax=ax)
+    ax.set_title("Correlation Matrix Heatmap")
+    st.pyplot(fig)
+
+# Footer message for clarity
+else:
+    st.sidebar.info("Click the 'Predict Spending Score' or 'Show Detailed Data Analysis' buttons to explore the app!")
