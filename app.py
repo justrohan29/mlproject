@@ -5,7 +5,7 @@ import plotly.express as px
 
 
 # Title and description
-st.title("Customer Spending Score Predictor")
+st.title("FUCK YOU AISHANI")
 st.markdown("Input customer details to predict their Spending Score dynamically.")
 
 # Load the dataset
