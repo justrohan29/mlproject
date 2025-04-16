@@ -1,9 +1,8 @@
 import streamlit as st
 import pandas as pd
 from ml_model import train_model
-import seaborn as sns
-import matplotlib.pyplot as plt
 import plotly.express as px
+
 
 # Title and description
 st.title("Customer Spending Score Predictor")
