@@ -6,7 +6,7 @@ import plotly.express as px
 
 # Title and description
 st.title("FUCK YOU AISHANI")
-st.markdown("Input customer details to predict their Spending Score dynamically.")
+st.markdown("EVERYBODY HATES YOU")
 
 # Load the dataset
 @st.cache_data
