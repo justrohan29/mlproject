@@ -59,8 +59,8 @@ else:
     st.sidebar.info("Click the 'Predict Spending Score' or 'Show Dataset' buttons to explore the app!")
 
 
-st.sidebar.markdown("### Creators")
+st.sidebar.markdown("### Made with 💖 by:")
+st.sidebar.markdown("👩‍💻 Saanvi")
+st.sidebar.markdown("👩‍💻 Saumya")
 st.sidebar.markdown("👩‍💻 Rohan")
-st.sidebar.markdown("👩‍💻 Teammate Name 1")
-st.sidebar.markdown("👩‍💻 Teammate Name 2")
 
