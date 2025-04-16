@@ -26,7 +26,7 @@ age = st.sidebar.slider("Age", min_value=18, max_value=70, value=30)
 annual_income = st.sidebar.number_input("Annual Income (in $k)", min_value=0, max_value=200, value=50)
 
 # Train the model dynamically
-model, X_test, y_test = train_model("data")
+model, X_test, y_test = train_model(data)  # Corrected: Passing 'data', not "data"
 
 # Prepare user input for prediction
 user_data = pd.DataFrame({
@@ -49,17 +49,12 @@ if st.sidebar.button("Predict Spending Score"):
     else:
         st.success("High Spending Score. Great candidates for premium products!")
 
-st.sidebar.info("Click the 'Predict Spending Score')
+# Sidebar button for detailed analysis
+if st.sidebar.button("Show Dataset"):
+    st.subheader("Dataset Overview")
+    st.write("Here's a preview of your dataset:")
+    st.dataframe(data)
 
-                
- # NEW: Sidebar button for detailed analysis
- if st.sidebar.button("Show Dataset"):
-     # Detailed Analysis Section
-     st.subheader("Dataset Overview")
-     st.write("Here's a preview of your dataset:")
-     st.dataframe(data)
- 
- # Footer message for clarity
- else:
-     st.sidebar.info("Click the 'Predict Spending Score' or 'Show Dataset' buttons to explore the app!")
- st.sidebar.info("Click the 'Predict Spending Score')
+# Footer message for clarity
+else:
+    st.sidebar.info("Click the 'Predict Spending Score' or 'Show Dataset' buttons to explore the app!")
