@@ -57,3 +57,7 @@ if st.sidebar.button("Show Dataset"):
 # Footer message for clarity
 else:
     st.sidebar.info("Click the 'Predict Spending Score' or 'Show Dataset' buttons to explore the app!")
+
+
+# Add footer at the bottom of the main page
+st.markdown('<p style="font-size:10px; text-align:center;">Made with 💖 by Rohan and teammates</p>', unsafe_allow_html=True)
