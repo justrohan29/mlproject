@@ -5,8 +5,8 @@ import plotly.express as px
 
 
 # Title and description
-st.title("FUCK YOU AISHANI")
-st.markdown("EVERYBODY HATES YOU")
+st.title("Customer Spending Score Predictor")
+st.markdown("Input customer details to predict their Spending Score dynamically.")
 
 # Load the dataset
 @st.cache_data
@@ -59,7 +59,7 @@ else:
     st.sidebar.info("Click the 'Predict Spending Score' or 'Show Dataset' buttons to explore the app!")
 
 
-st.sidebar.markdown("### fuck u aishani:")
+st.sidebar.markdown("Made By:")
 st.sidebar.markdown("👩‍💻 Saanvi")
 st.sidebar.markdown("👩‍💻 Saumya")
 st.sidebar.markdown("👩‍💻 Rohan")
