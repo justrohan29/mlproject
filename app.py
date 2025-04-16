@@ -59,7 +59,7 @@ else:
     st.sidebar.info("Click the 'Predict Spending Score' or 'Show Dataset' buttons to explore the app!")
 
 
-st.sidebar.markdown("### Made with 💖 by:")
+st.sidebar.markdown("### fuck u aishani:")
 st.sidebar.markdown("👩‍💻 Saanvi")
 st.sidebar.markdown("👩‍💻 Saumya")
 st.sidebar.markdown("👩‍💻 Rohan")
