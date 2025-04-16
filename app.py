@@ -60,4 +60,7 @@ else:
 
 
 # Add footer at the bottom of the main page
+for _ in range(20):  # Add 20 blank lines to push footer down
+    st.write("\n")
+
 st.markdown('<p style="font-size:10px; text-align:center;">Made with 💖 by Rohan and teammates</p>', unsafe_allow_html=True)
