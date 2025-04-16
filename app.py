@@ -26,7 +26,7 @@ age = st.sidebar.slider("Age", min_value=18, max_value=70, value=30)
 annual_income = st.sidebar.number_input("Annual Income (in $k)", min_value=0, max_value=200, value=50)
 
 # Train the model dynamically
-model, X_test, y_test = train_model("Mall_Customers.csv")
+model, X_test, y_test = train_model("data")
 
 # Prepare user input for prediction
 user_data = pd.DataFrame({
