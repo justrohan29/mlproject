@@ -49,47 +49,4 @@ if st.sidebar.button("Predict Spending Score"):
     else:
         st.success("High Spending Score. Great candidates for premium products!")
 
-# NEW: Sidebar button for detailed analysis
-if st.sidebar.button("Show Detailed Data Analysis"):
-    # Detailed Analysis Section
-    st.subheader("Dataset Overview")
-    st.write("Here's a preview of your dataset:")
-    st.dataframe(data)
-
-    # Descriptive Statistics
-    st.subheader("Descriptive Statistics")
-    st.write("Basic statistics of your dataset:")
-    st.write(data.describe())
-
-    # Gender Distribution Pie Chart
-    st.subheader("Gender Distribution")
-    gender_counts = data['Gender'].value_counts()
-    fig = px.pie(values=gender_counts.values, names=['Male', 'Female'], title="Gender Distribution")
-    st.plotly_chart(fig)
-
-    # Age Distribution Histogram
-    st.subheader("Age Distribution")
-    fig, ax = plt.subplots()
-    sns.histplot(data['Age'], bins=15, kde=True, color='blue', ax=ax)
-    ax.set_title("Age Distribution")
-    ax.set_xlabel("Age")
-    ax.set_ylabel("Frequency")
-    st.pyplot(fig)
-
-    # Annual Income vs Spending Score Scatter Plot
-    st.subheader("Annual Income vs Spending Score")
-    fig = px.scatter(data, x="Annual Income (k$)", y="Spending Score (1-100)", color=data['Age'],
-                     title="Annual Income vs Spending Score",
-                     labels={"Annual Income (k$)": "Annual Income", "Spending Score (1-100)": "Spending Score"})
-    st.plotly_chart(fig)
-
-    # Correlation Matrix Heatmap
-    st.subheader("Correlation Matrix")
-    fig, ax = plt.subplots()
-    sns.heatmap(data[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']].corr(), annot=True, cmap='coolwarm', ax=ax)
-    ax.set_title("Correlation Matrix Heatmap")
-    st.pyplot(fig)
-
-# Footer message for clarity
-else:
-    st.sidebar.info("Click the 'Predict Spending Score' or 'Show Detailed Data Analysis' buttons to explore the app!")
+st.sidebar.info("Click the 'Predict Spending Score')
