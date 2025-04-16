@@ -50,3 +50,16 @@ if st.sidebar.button("Predict Spending Score"):
         st.success("High Spending Score. Great candidates for premium products!")
 
 st.sidebar.info("Click the 'Predict Spending Score')
+
+                
+ # NEW: Sidebar button for detailed analysis
+ if st.sidebar.button("Show Dataset"):
+     # Detailed Analysis Section
+     st.subheader("Dataset Overview")
+     st.write("Here's a preview of your dataset:")
+     st.dataframe(data)
+ 
+ # Footer message for clarity
+ else:
+     st.sidebar.info("Click the 'Predict Spending Score' or 'Show Dataset' buttons to explore the app!")
+ st.sidebar.info("Click the 'Predict Spending Score')
