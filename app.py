@@ -68,8 +68,8 @@ if st.sidebar.button("Show Model Accuracy"):
 
     # Display metrics
     st.write(f"**Mean Absolute Error (MAE):** {mae:.2f}")
-    st.write(f"**Mean Squared Error (MSE):** {mse:.2f}")
-    st.write(f"**Root Mean Squared Error (RMSE):** {rmse:.2f}")
+    #st.write(f"**Mean Squared Error (MSE):** {mse:.2f}")
+    #st.write(f"**Root Mean Squared Error (RMSE):** {rmse:.2f}")
     #st.write(f"**Mean Squared Logarithmic Error (MSLE):** {msle:.2f}")
     #st.write(f"**Median Absolute Error (MedAE):** {medae:.2f}")
     st.write(f"**R-Squared Value (R²):** {r2:.2f}")
