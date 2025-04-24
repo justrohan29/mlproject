@@ -87,7 +87,7 @@ if st.sidebar.button("Show Visual Charts"):
     # Correlation Matrix Heatmap
     st.markdown("### Correlation Matrix")
     corr_matrix = data[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']].corr()
-    fig = px.imshow(corr_matrix, text_auto=True, title="Correlation Matrix Heatmap", color_continuous_scale='coolwarm')
+    fig = px.imshow(corr_matrix, text_auto=True, title="Correlation Matrix Heatmap", color_continuous_scale='viridis')
     st.plotly_chart(fig)
 
 # Footer message for clarity
