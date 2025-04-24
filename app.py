@@ -60,19 +60,11 @@ if st.sidebar.button("Show Model Accuracy"):
     
     # Calculate metrics
     mae = mean_absolute_error(y_test, test_predictions)
-    mse = mean_squared_error(y_test, test_predictions)
-    rmse = mse ** 0.5  # Root Mean Squared Error
-    msle = mean_squared_log_error(y_test, test_predictions)
     medae = median_absolute_error(y_test, test_predictions)
-    r2 = r2_score(y_test, test_predictions)
 
     # Display metrics
     st.write(f"**Mean Absolute Error (MAE):** {mae:.2f}")
-    #st.write(f"**Mean Squared Error (MSE):** {mse:.2f}")
-    #st.write(f"**Root Mean Squared Error (RMSE):** {rmse:.2f}")
-    #st.write(f"**Mean Squared Logarithmic Error (MSLE):** {msle:.2f}")
-    #st.write(f"**Median Absolute Error (MedAE):** {medae:.2f}")
-    st.write(f"**R-Squared Value (R²):** {r2:.2f}")
+    st.write(f"**Median Absolute Error (MedAE):** {medae:.2f}")
     st.info("These metrics evaluate the model's accuracy on test data.")
 
 # Sidebar button for visual charts
