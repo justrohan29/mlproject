@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from ml_model import train_model
 import plotly.express as px
-from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score, mean_squared_log_error, median_absolute_error
 
 # Title and description
 st.title("Customer Spending Score Predictor")
@@ -12,9 +12,13 @@ st.markdown("Input customer details to predict their Spending Score dynamically.
 @st.cache_data
 def load_data():
     # Load the dataset
-    data = pd.read_csv("Mall_Customers.csv")
-    data['Gender'] = data['Gender'].map({'Male': 1, 'Female': 0})  # Encode gender
-    return data
+    try:
+        data = pd.read_csv("Mall_Customers.csv")
+        data['Gender'] = data['Gender'].map({'Male': 1, 'Female': 0})  # Encode gender
+        return data
+    except FileNotFoundError:
+        st.error("Dataset file 'Mall_Customers.csv' not found. Please ensure it is in the correct directory.")
+        return pd.DataFrame()
 
 data = load_data()
 
@@ -25,7 +29,7 @@ age = st.sidebar.slider("Age", min_value=18, max_value=70, value=30)
 annual_income = st.sidebar.number_input("Annual Income (in $k)", min_value=0, max_value=200, value=50)
 
 # Train the model dynamically
-model, X_test, y_test = train_model(data)  # Passing 'data'
+model, X_test, y_test = train_model(data)  # Passing the loaded data
 
 # Prepare user input for prediction
 user_data = pd.DataFrame({
@@ -48,18 +52,28 @@ if st.sidebar.button("Predict Spending Score"):
     else:
         st.success("High Spending Score. Great candidates for premium products!")
 
-# Sidebar button for accuracy scores
+# Sidebar button for model accuracy metrics
 if st.sidebar.button("Show Model Accuracy"):
     st.subheader("Model Accuracy and Metrics")
     # Get predictions for test data
     test_predictions = model.predict(X_test)
+    
+    # Calculate metrics
     mae = mean_absolute_error(y_test, test_predictions)
+    mse = mean_squared_error(y_test, test_predictions)
+    rmse = mse ** 0.5  # Root Mean Squared Error
+    msle = mean_squared_log_error(y_test, test_predictions)
+    medae = median_absolute_error(y_test, test_predictions)
     r2 = r2_score(y_test, test_predictions)
 
     # Display metrics
-    st.write(f"**Mean Absolute Error:** {mae:.2f}")
-    st.write(f"**R-Squared Value:** {r2:.2f}")
-    st.info("These metrics indicate the model's performance on the test data.")
+    st.write(f"**Mean Absolute Error (MAE):** {mae:.2f}")
+    st.write(f"**Mean Squared Error (MSE):** {mse:.2f}")
+    st.write(f"**Root Mean Squared Error (RMSE):** {rmse:.2f}")
+    st.write(f"**Mean Squared Logarithmic Error (MSLE):** {msle:.2f}")
+    st.write(f"**Median Absolute Error (MedAE):** {medae:.2f}")
+    st.write(f"**R-Squared Value (R²):** {r2:.2f}")
+    st.info("These metrics evaluate the model's accuracy on test data.")
 
 # Sidebar button for visual charts
 if st.sidebar.button("Show Visual Charts"):
@@ -87,7 +101,12 @@ if st.sidebar.button("Show Visual Charts"):
     # Correlation Matrix Heatmap
     st.markdown("### Correlation Matrix")
     corr_matrix = data[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']].corr()
-    fig = px.imshow(corr_matrix, text_auto=True, title="Correlation Matrix Heatmap", color_continuous_scale='viridis')
+    fig = px.imshow(
+        corr_matrix,
+        text_auto=True,
+        title="Correlation Matrix Heatmap",
+        color_continuous_scale='plasma'  # Updated colorscale
+    )
     st.plotly_chart(fig)
 
 # Footer message for clarity
