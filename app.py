@@ -103,7 +103,4 @@ if st.sidebar.button("Show Visual Charts"):
 
 # Footer message for clarity
 st.sidebar.markdown("Made By:")
-st.sidebar.markdown("👩‍💻 Saanvi")
-st.sidebar.markdown("👩‍💻 Saumya")
 st.sidebar.markdown("👩‍💻 Rohan")
-st.sidebar.markdown('<p style="font-size:10px; text-align:center;">Made with 💖 by the team</p>', unsafe_allow_html=True)
